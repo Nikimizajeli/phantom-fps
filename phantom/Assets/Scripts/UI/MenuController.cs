@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
     [SerializeField] private MenuButton _buttonPrefab;
     [SerializeField] private Transform _buttonsRoot;
@@ -12,7 +12,7 @@ public class MainMenu : MonoBehaviour
 
     protected void Awake()
     {
-        EventDispatcher.Instance.Raise<MainMenuLoadedEvent>(new MainMenuLoadedEvent{ mainMenu = this });
+        EventDispatcher.Instance.Raise<MainMenuLoadedEvent>(new MainMenuLoadedEvent{ MenuController = this });
     }
 
     public void AddButton(string text, Action callback)

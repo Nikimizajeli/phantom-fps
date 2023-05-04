@@ -8,7 +8,7 @@ public class GameController : SingletonGameObject<GameController>
 
     public string PlayerName { get; set; }
 
-    private MainMenu _mainMenu;
+    private MenuController _menuController;
 
     protected void Awake()
     {
@@ -17,9 +17,9 @@ public class GameController : SingletonGameObject<GameController>
 
     protected void Start()
     {
-        _mainMenu.AddButton(TextConstants.PlayGame, () =>
+        _menuController.AddButton(TextConstants.PlayGame, () =>
         {
-            _mainMenu.gameObject.SetActive(false);
+            _menuController.gameObject.SetActive(false);
             sceneLoader.LoadGameScene();
         });
     }
@@ -36,6 +36,6 @@ public class GameController : SingletonGameObject<GameController>
 
     private void OnMainMenuLoadedEvent(MainMenuLoadedEvent ev)
     {
-        _mainMenu = ev.mainMenu;
+        _menuController = ev.MenuController;
     }
 }

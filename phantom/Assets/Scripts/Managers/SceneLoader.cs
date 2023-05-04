@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum SceneType
+{
+    StartupScene,
+    MenuScene,
+    GameScene
+}
 public class SceneLoader : MonoBehaviour
 {
-    private const string MenuSceneName = "Menu";
-    private const string GameSceneName = "Game";
-    
     public void LoadMenuScene()
     {
-        SceneManager.LoadScene(MenuSceneName, LoadSceneMode.Additive);
+        SceneManager.LoadScene(SceneType.MenuScene.ToString(), LoadSceneMode.Additive);
     }
 
     public void LoadGameScene()
     {
-        SceneManager.LoadScene(GameSceneName, LoadSceneMode.Additive);
+        SceneManager.LoadScene(SceneType.GameScene.ToString(), LoadSceneMode.Additive);
     }
 }
