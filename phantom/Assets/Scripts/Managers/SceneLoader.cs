@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public enum SceneType
 {
@@ -9,13 +11,27 @@ public enum SceneType
 }
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] private TransitionScreen transitionScreen;
+    
     public void LoadMenuScene()
     {
         SceneManager.LoadScene(SceneType.MenuScene.ToString(), LoadSceneMode.Additive);
     }
 
-    public void LoadGameScene()
+    public void LoadGameScene(Action callback = null)
     {
-        SceneManager.LoadScene(SceneType.GameScene.ToString(), LoadSceneMode.Additive);
+        var gameScene = SceneManager.LoadSceneAsync(SceneType.GameScene.ToString(), LoadSceneMode.Additive);
+        gameScene.allowSceneActivation = false;
+        
+        transitionScreen.ShowTransitionScreen(() =>
+        {
+            gameScene.allowSceneActivation = true;
+        });
+        
+        gameScene.completed += (op) =>
+        {
+            callback?.Invoke();
+            transitionScreen.CloseTransitionScreen();
+        };
     }
 }

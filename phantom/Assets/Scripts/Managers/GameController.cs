@@ -19,8 +19,11 @@ public class GameController : SingletonGameObject<GameController>
     {
         _menuController.AddButton(TextConstants.PlayGame, () =>
         {
-            _menuController.gameObject.SetActive(false);
-            sceneLoader.LoadGameScene();
+            sceneLoader.LoadGameScene(() =>
+            {
+                _menuController.gameObject.SetActive(false);
+            });
+            
         });
     }
 
