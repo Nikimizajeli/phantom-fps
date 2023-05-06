@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IMovableCharacter
+public interface IPlayerControlled
 {
     void Move(Vector2 direction);
     void Jump();

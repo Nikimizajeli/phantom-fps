@@ -1,4 +1,5 @@
 using System;
+using Phantom.Scripts.Configuration;
 using UnityEngine;
 
 public class GameController : SingletonGameObject<GameController>

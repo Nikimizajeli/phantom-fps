@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour, IMovableCharacter
+public class PlayerMovement : MonoBehaviour, IPlayerControlled
 {
     private const float Gravity = -9.81f;
     private const float TurningThreshold = 0.1f;
