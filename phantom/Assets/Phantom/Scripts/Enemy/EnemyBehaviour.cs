@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -14,28 +10,34 @@ public class EnemyBehaviour : MonoBehaviour
     private bool _playerDetected;
     private float _distanceToTarget = Mathf.Infinity;
     private Transform _target;
-    
+
     protected void Start()
     {
-        
     }
 
     protected void OnEnable()
     {
+        EventDispatcher.Instance.AddListener<PlayerDeathEvent>(OnTargetDeath);
         spotter.TargetFound += OnTargetFound;
+        
     }
 
     protected void OnDisable()
     {
+        EventDispatcher.Instance.RemoveListener<PlayerDeathEvent>(OnTargetDeath);
         spotter.TargetFound -= OnTargetFound;
     }
 
     protected void Update()
     {
-        if (_target == null)
+        if (_playerDetected)
         {
-            return;
+            ChaseTarget();
         }
+    }
+
+    private void ChaseTarget()
+    {
         _distanceToTarget = Vector3.Distance(_target.position, transform.position);
         if (_distanceToTarget < chasingRange)
         {
@@ -45,6 +47,23 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTargetFound(GameObject target)
     {
-        _target = target.GetComponent<Transform>();
+        if (!_playerDetected
+            || (Vector3.Distance(transform.position, _target.position) >
+                Vector3.Distance(transform.position, target.transform.position)))
+        {
+            _playerDetected = true;
+            _target = target.GetComponent<Transform>();
+        }
+    }
+
+    private void OnTargetDeath(PlayerDeathEvent ev)
+    {
+        if (ev.PlayerObject != _target.gameObject)
+        {
+            return;
+        }
+        
+        _target = null;
+        _playerDetected = false;
     }
 }

@@ -22,7 +22,6 @@ public class Spotter : MonoBehaviour
     protected void Awake()
     {
         _collidersHit = new Collider[Constants.MaxPlayers];
-        StartCoroutine(SeekTargets());
     }
 
     private void OnEnable()
