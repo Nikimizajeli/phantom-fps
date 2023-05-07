@@ -1,16 +1,12 @@
-using System;
-using System.Collections;
-using Phantom.Scripts.Configuration;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class GameController : SingletonGameObject<GameController>
 {
     [SerializeField] private SceneLoader sceneLoader;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private PlayerHUD playerHUD;
+    [SerializeField] private HighScoresManager highScoresManager;
 
     public string PlayerName { get; set; }
     public bool IsPaused { get; private set; }
@@ -24,25 +20,6 @@ public class GameController : SingletonGameObject<GameController>
     {
         sceneLoader.LoadMenuScene();
         _gameMode = GetComponent<IGameMode>();
-    }
-
-    protected void Start()
-    {
-        // _menuController.AddButton(TextConstants.PlayGame, () =>
-        // {
-        //     if (string.IsNullOrEmpty(PlayerName))
-        //     {
-        //         return;
-        //     }
-        //     
-        //     sceneLoader.LoadGameScene(() =>
-        //     {
-        //         _gameMode.StartGame();
-        //         playerHUD.gameObject.SetActive(true);
-        //         _menuController.gameObject.SetActive(false);
-        //     });
-        //     
-        // });
     }
 
     protected void OnEnable()
@@ -67,6 +44,11 @@ public class GameController : SingletonGameObject<GameController>
         }
     }
 
+    public SortedSet<HighScoreEntry> GetHighScores()
+    {
+        return highScoresManager.GetHighScores();
+    }
+    
     private void OnMainMenuLoadedEvent(MainMenuLoadedEvent ev)
     {
         _menuController = ev.MenuController;
