@@ -30,6 +30,7 @@ public class SceneLoader : MonoBehaviour
         
         gameScene.completed += (op) =>
         {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneType.GameScene.ToString()));
             callback?.Invoke();
             transitionScreen.CloseTransitionScreen();
         };

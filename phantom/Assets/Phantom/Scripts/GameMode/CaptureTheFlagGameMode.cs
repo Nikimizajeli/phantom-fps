@@ -29,13 +29,14 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
 
     public void StartGame()
     {
-        var playerController = Instantiate(playerPrefab);
-        EventDispatcher.Instance.Raise<PlayerSpawnedEvent>(new PlayerSpawnedEvent
-            { PlayerObject = playerController.gameObject, LivesLeft = _currentLives});
-
         _gameFinished = false;
         _currentLives = maxLives;
         _gameTimeS = 0;
+        
+        var playerController = Instantiate(playerPrefab);
+        EventDispatcher.Instance.Raise<PlayerSpawnedEvent>(new PlayerSpawnedEvent
+            { PlayerObject = playerController.gameObject, LivesLeft = _currentLives});
+        
         StartCoroutine(CountTime());
     }
 

@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerControlled
     private Vector3 _movementDirection;
     private Vector3 _turningDirection;
     private bool _sprint;
+    private bool _canMove = true;
 
     protected void Start()
     {
@@ -33,8 +34,13 @@ public class PlayerMovement : MonoBehaviour, IPlayerControlled
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    protected void Update()
+    protected void FixedUpdate()
     {
+        if (!_canMove)
+        {
+            return;
+        }
+        
         ProcessTurning();
         ProcessGravity();
         ProcessMoving();

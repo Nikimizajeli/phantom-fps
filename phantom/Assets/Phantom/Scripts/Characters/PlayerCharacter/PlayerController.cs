@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
         _healthComponent.OnDurabilityThreshold -= OnPlayerDeath;
     }
 
+    public void EnableMovement(bool enable)
+    {
+        playerMovement.enabled = enable;
+    }
+    
     private void OnPlayerDeath()
     {
         Debug.Log("Player died.");
