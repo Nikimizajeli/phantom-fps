@@ -8,8 +8,10 @@ public class GameController : SingletonGameObject<GameController>
     [SerializeField] private InputManager inputManager;
 
     public string PlayerName { get; set; }
-
+    public bool IsPaused { get; private set; }
+    
     private MenuController _menuController;
+    
 
     protected void Awake()
     {
@@ -38,8 +40,37 @@ public class GameController : SingletonGameObject<GameController>
         EventDispatcher.Instance.RemoveListener<MainMenuLoadedEvent>(OnMainMenuLoadedEvent);
     }
 
+    public void PauseGame()
+    {
+        IsPaused = true;
+        Time.timeScale = 0f;
+        _menuController.gameObject.SetActive(true);
+    }
+    
+    public void UnpauseGame()
+    {
+        IsPaused = false;
+        Time.timeScale = 1f;
+        _menuController.gameObject.SetActive(false);
+    }
+
+    public void OnPauseKey()
+    {
+        if (IsPaused)
+        {
+            UnpauseGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
+    
     private void OnMainMenuLoadedEvent(MainMenuLoadedEvent ev)
     {
         _menuController = ev.MenuController;
     }
+    
+    
+    
 }

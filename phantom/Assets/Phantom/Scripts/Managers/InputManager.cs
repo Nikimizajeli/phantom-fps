@@ -72,6 +72,16 @@ public class InputManager : MonoBehaviour
         _selectedWeapon?.Reload();
     }
 
+    public void Pause(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+        
+        GameController.Instance.OnPauseKey();
+    }
+
     private void OnAssumingCharacterControlEvent(AssumingCharacterControlEvent ev)
     {
         _controlledCharacter = ev.ControlledCharacter;
