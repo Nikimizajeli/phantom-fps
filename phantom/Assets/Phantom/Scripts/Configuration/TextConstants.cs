@@ -10,6 +10,8 @@ namespace Phantom.Scripts.Configuration
         public const string Victory = "Victory";
         public const string GameOver = "Game Over";
         public const string HighScores = "High Scores";
-    
+        public const string MainMenu = "Main Menu";
+        public const string Pause = "Pause";
+
     }
 }

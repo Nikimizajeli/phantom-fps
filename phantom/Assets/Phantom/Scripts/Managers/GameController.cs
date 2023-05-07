@@ -26,21 +26,21 @@ public class GameController : SingletonGameObject<GameController>
 
     protected void Start()
     {
-        _menuController.AddButton(TextConstants.PlayGame, () =>
-        {
-            if (string.IsNullOrEmpty(PlayerName))
-            {
-                return;
-            }
-            
-            sceneLoader.LoadGameScene(() =>
-            {
-                _gameMode.StartGame();
-                playerHUD.gameObject.SetActive(true);
-                _menuController.gameObject.SetActive(false);
-            });
-            
-        });
+        // _menuController.AddButton(TextConstants.PlayGame, () =>
+        // {
+        //     if (string.IsNullOrEmpty(PlayerName))
+        //     {
+        //         return;
+        //     }
+        //     
+        //     sceneLoader.LoadGameScene(() =>
+        //     {
+        //         _gameMode.StartGame();
+        //         playerHUD.gameObject.SetActive(true);
+        //         _menuController.gameObject.SetActive(false);
+        //     });
+        //     
+        // });
     }
 
     protected void OnEnable()
