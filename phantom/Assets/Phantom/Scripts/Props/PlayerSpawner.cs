@@ -25,8 +25,12 @@ public class PlayerSpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"{other.gameObject.name} entered collider");
+        if (!other.GetComponentInChildren<FlagObjective>())
+        {
+            return;
+        }
+
+        Debug.Log("Flag returned to base!");
+        EventDispatcher.Instance.Raise(new LevelFlagEvent { FlagReturned = true });
     }
-
-
 }

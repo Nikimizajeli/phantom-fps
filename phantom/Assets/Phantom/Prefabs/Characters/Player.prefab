@@ -313,8 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 3589296800167851838}
-  movementSpeed: 5
-  sprintSpeedMultiplier: 1.5
+  movementSpeed: 10
+  sprintSpeedMultiplier: 2
   gravityMultiplier: 2
   jumpingPower: 5
   cameraRoot: {fileID: 8023659829119315331}
