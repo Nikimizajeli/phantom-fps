@@ -10,6 +10,8 @@ public class Spotter : MonoBehaviour
     [SerializeField] private float detectionDistance = 20f;
     [SerializeField] private float detectionInterval = 0.5f;
     [SerializeField] private float detectionAngle = 120f;
+    [SerializeField] private float provokedDistanceMultiplier = 3f;
+    [SerializeField] private float provokedAngleMultiplier = 3f;
 
     [Header("Gizmo")] 
     [SerializeField] private bool debugFieldOfView;
@@ -18,6 +20,10 @@ public class Spotter : MonoBehaviour
     public event Action<GameObject> TargetFound;
     
     private Collider[] _collidersHit;
+    private bool _provoked;
+    private float DetectionDistance => _provoked ? detectionDistance * provokedDistanceMultiplier : detectionDistance;
+    private float DetectionAngle => _provoked ? detectionAngle * provokedAngleMultiplier : detectionAngle; 
+    
     
     protected void Awake()
     {
@@ -34,12 +40,17 @@ public class Spotter : MonoBehaviour
         StopCoroutine(SeekTargets());
     }
 
-    IEnumerator SeekTargets()
+    public void Provoke()
+    {
+        _provoked = true;
+    }
+    
+    private IEnumerator SeekTargets()
     {
         while (true)
         {
             var numberOfHits =
-                Physics.OverlapSphereNonAlloc(transform.position, detectionDistance, _collidersHit, targetLayer);
+                Physics.OverlapSphereNonAlloc(transform.position, DetectionDistance, _collidersHit, targetLayer);
             for (int i = 0; i < numberOfHits; i++)
             {
                 GameObject target = _collidersHit[i].gameObject;
@@ -58,19 +69,19 @@ public class Spotter : MonoBehaviour
         Vector3 directionToOther = otherObject.transform.position - transform.position;
         float angle = Vector3.Angle(transform.forward, directionToOther);
 
-        return angle <= detectionAngle * 0.5f;
+        return angle <= DetectionAngle * 0.5f;
     }
 
     private bool LineOfSightBlocked(GameObject otherObject)
     {
         var rayDirection = (otherObject.transform.position - transform.position).normalized;
-        if (Physics.Raycast(transform.position, rayDirection, out var hitInfo, detectionDistance + 1))
+        if (Physics.Raycast(transform.position, rayDirection, out var hitInfo, DetectionDistance + 1))
         {
 
 #if UNITY_EDITOR
             if (debugFieldOfView)
             {
-                Debug.DrawRay(transform.position, rayDirection * detectionDistance, Color.red, 2f);
+                Debug.DrawRay(transform.position, rayDirection * DetectionDistance, Color.red, 2f);
             }
 #endif
             
@@ -95,12 +106,12 @@ public class Spotter : MonoBehaviour
         var position = transform.position;
         var forward = transform.forward;
         
-        Quaternion rotationRight = Quaternion.AngleAxis(detectionAngle * 0.5f, up);
-        Quaternion rotationLeft = Quaternion.AngleAxis(detectionAngle * -0.5f, up);
+        Quaternion rotationRight = Quaternion.AngleAxis(DetectionAngle * 0.5f, up);
+        Quaternion rotationLeft = Quaternion.AngleAxis(DetectionAngle * -0.5f, up);
         
-        Handles.DrawWireArc(position, up, rotationLeft * forward, detectionAngle, detectionDistance);
-        Handles.DrawLine(position, position + rotationRight * forward * detectionDistance);
-        Handles.DrawLine(position, position + rotationLeft * forward * detectionDistance);
+        Handles.DrawWireArc(position, up, rotationLeft * forward, DetectionAngle, DetectionDistance);
+        Handles.DrawLine(position, position + rotationRight * forward * DetectionDistance);
+        Handles.DrawLine(position, position + rotationLeft * forward * DetectionDistance);
         
     }
 #endif

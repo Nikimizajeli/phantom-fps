@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public interface IDamageable
 {
-    public void TakeDamage(float damage);
+    public event Action OnDamageTaken;
+    public event Action OnDurabilityThreshold;
+    public void TakeDamage(int damage);
 }

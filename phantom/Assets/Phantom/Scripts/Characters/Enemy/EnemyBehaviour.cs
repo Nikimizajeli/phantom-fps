@@ -10,22 +10,28 @@ public class EnemyBehaviour : MonoBehaviour
     private bool _playerDetected;
     private float _distanceToTarget = Mathf.Infinity;
     private Transform _target;
+    private IDamageable _healthComponent;
 
-    protected void Start()
+    protected void Awake()
     {
+        _healthComponent = GetComponent<IDamageable>();
     }
 
     protected void OnEnable()
     {
         EventDispatcher.Instance.AddListener<PlayerDeathEvent>(OnTargetDeath);
         spotter.TargetFound += OnTargetFound;
-        
+        _healthComponent.OnDamageTaken += OnDamageTaken;
+        _healthComponent.OnDurabilityThreshold += OnHealthDepleted;
+
     }
 
     protected void OnDisable()
     {
         EventDispatcher.Instance.RemoveListener<PlayerDeathEvent>(OnTargetDeath);
         spotter.TargetFound -= OnTargetFound;
+        _healthComponent.OnDamageTaken -= OnDamageTaken;
+        _healthComponent.OnDurabilityThreshold -= OnHealthDepleted;
     }
 
     protected void Update()
@@ -80,5 +86,16 @@ public class EnemyBehaviour : MonoBehaviour
         
         _target = null;
         _playerDetected = false;
+    }
+
+    private void OnDamageTaken()
+    {
+        spotter.Provoke();
+    }
+    
+    private void OnHealthDepleted()
+    {
+        // TODO: Add visual cue for death
+        Destroy(gameObject);
     }
 }

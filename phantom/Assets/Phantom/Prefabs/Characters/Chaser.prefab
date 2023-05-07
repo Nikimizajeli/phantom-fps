@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 913392580172641646}
   - component: {fileID: 7877208886834992337}
   - component: {fileID: 7322708127091001387}
+  - component: {fileID: 817615346297892157}
   - component: {fileID: 913392580172641645}
   - component: {fileID: 913392580172641644}
   - component: {fileID: 913392580172641635}
@@ -132,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotter: {fileID: 7322708127091001387}
   navMeshAgent: {fileID: -5469549459250101565}
-  chasingRange: 20
+  chasingRange: 60
 --- !u!114 &7322708127091001387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,8 +152,23 @@ MonoBehaviour:
   detectionDistance: 20
   detectionInterval: 0.5
   detectionAngle: 120
+  provokedDistanceMultiplier: 3
+  provokedAngleMultiplier: 3
   debugFieldOfView: 1
   lineColor: {r: 0, g: 0.9543438, b: 1, a: 1}
+--- !u!114 &817615346297892157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913392580172641634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5cf38ee3d0f9248937d27e3d87befb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 6
 --- !u!33 &913392580172641645
 MeshFilter:
   m_ObjectHideFlags: 0

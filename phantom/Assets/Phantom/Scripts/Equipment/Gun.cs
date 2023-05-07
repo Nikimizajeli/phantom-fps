@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour, IWeapon
     [SerializeField] private int maxAmmo = 20;
     [SerializeField] private float reloadTime = 2.0f;
     [SerializeField] private float range = 40f;
-    [SerializeField] private float damage = 2f;
+    [SerializeField] private int damage = 2;
     [SerializeField] private LayerMask targetsLayer;
 
     public bool CanFire => _currentAmmo > 0;
