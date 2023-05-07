@@ -52,5 +52,6 @@ public class PlayerHUD : MonoBehaviour
     private void OnPlayerSpawned(PlayerSpawnedEvent ev)
     {
         livesCounter.text = $"Lives:\n{ev.LivesLeft}";
+        playerName.text = GameController.Instance.PlayerName;
     }
 }

@@ -28,6 +28,11 @@ public class GameController : SingletonGameObject<GameController>
     {
         _menuController.AddButton(TextConstants.PlayGame, () =>
         {
+            if (string.IsNullOrEmpty(PlayerName))
+            {
+                return;
+            }
+            
             sceneLoader.LoadGameScene(() =>
             {
                 _gameMode.StartGame();
