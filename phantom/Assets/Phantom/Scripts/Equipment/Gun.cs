@@ -16,6 +16,22 @@ public class Gun : MonoBehaviour, IWeapon
     private int _currentAmmo;
     private bool _reloading;
 
+    private Transform _mainCameraTransform;
+
+    private Transform MainCameraTransform
+    {
+        get
+        {
+            // TODO: Camera.main uses tags, find better way
+            if (_mainCameraTransform == null && Camera.main != null)
+            {
+                _mainCameraTransform = Camera.main.transform;
+            }
+
+            return _mainCameraTransform;
+        }
+    }
+
     protected void Start()
     {
         EventDispatcher.Instance.Raise<WeaponSelectedEvent>(new WeaponSelectedEvent { SelectedWeapon = this });
@@ -35,15 +51,15 @@ public class Gun : MonoBehaviour, IWeapon
             return;
         }
 
-        if (Camera.main == null)
+        if (MainCameraTransform == null)
         {
+            Debug.LogError("Cannot find targets without camera");
             return;
         }
 
         SetCurrentAmmo(_currentAmmo - 1);
 
-        var mainCameraTransform = Camera.main.transform;
-        if (Physics.Raycast(mainCameraTransform.position, mainCameraTransform.forward, out var hit, range,
+        if (Physics.Raycast(MainCameraTransform.position, MainCameraTransform.forward, out var hit, range,
                 targetsLayer))
         {
             hit.transform.GetComponent<IDamageable>()?.TakeDamage(damage);
