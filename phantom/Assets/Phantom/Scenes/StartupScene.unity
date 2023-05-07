@@ -501,7 +501,19 @@ MonoBehaviour:
     m_ActionId: b7ad967e-d381-42ad-a4b3-ae1de7aaa8de
     m_ActionName: Gameplay/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1124370094}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e266e3d8-0604-4abb-bf8c-f23a62e862d4
     m_ActionName: Gameplay/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -536,6 +548,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8ab1d76f-2cf4-4faf-a7c4-f2eefc5f359d
     m_ActionName: Gameplay/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1124370094}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: Reload
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2035c6e0-4936-49fb-bfb5-5e6822b3df25
+    m_ActionName: Gameplay/Reload[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

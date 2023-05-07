@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 913392580172641644}
   - component: {fileID: 913392580172641635}
   - component: {fileID: -5469549459250101565}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Chaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
