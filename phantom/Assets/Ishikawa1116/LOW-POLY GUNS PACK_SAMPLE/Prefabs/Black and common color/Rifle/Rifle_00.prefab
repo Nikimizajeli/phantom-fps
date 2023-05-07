@@ -750,7 +750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmmo: 20
   reloadTime: 2
-  range: 60
+  range: 120
   damage: 2
   targetsLayer:
     serializedVersion: 2

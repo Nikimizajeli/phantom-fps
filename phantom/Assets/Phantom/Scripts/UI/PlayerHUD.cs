@@ -18,6 +18,7 @@ public class PlayerHUD : MonoBehaviour
         EventDispatcher.Instance.AddListener<ScoreUpdatedEvent>(OnScoreUpdated);
         EventDispatcher.Instance.AddListener<LevelFlagEvent>(OnLevelFlagEvent);
         EventDispatcher.Instance.AddListener<PlayerAmmoUpdatedEvent>(OnPlayerAmmoUpdatedEvent);
+        EventDispatcher.Instance.AddListener<PlayerSpawnedEvent>(OnPlayerSpawned);
     }
 
     protected void OnDisable()
@@ -25,6 +26,7 @@ public class PlayerHUD : MonoBehaviour
         EventDispatcher.Instance.RemoveListener<ScoreUpdatedEvent>(OnScoreUpdated);
         EventDispatcher.Instance.RemoveListener<LevelFlagEvent>(OnLevelFlagEvent);
         EventDispatcher.Instance.RemoveListener<PlayerAmmoUpdatedEvent>(OnPlayerAmmoUpdatedEvent);
+        EventDispatcher.Instance.RemoveListener<PlayerSpawnedEvent>(OnPlayerSpawned);
     }
 
     public void ShowHUD(bool show)
@@ -45,5 +47,10 @@ public class PlayerHUD : MonoBehaviour
     private void OnPlayerAmmoUpdatedEvent(PlayerAmmoUpdatedEvent ev)
     {
         ammoCounter.text = $"Ammo:\n{ev.CurrentAmmo}";
+    }
+
+    private void OnPlayerSpawned(PlayerSpawnedEvent ev)
+    {
+        livesCounter.text = $"Lives:\n{ev.LivesLeft}";
     }
 }

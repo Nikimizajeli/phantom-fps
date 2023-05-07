@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotter: {fileID: 7322708127091001387}
   navMeshAgent: {fileID: -5469549459250101565}
-  chasingRange: 60
+  chasingRange: 120
 --- !u!114 &7322708127091001387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
-  detectionDistance: 20
+  detectionDistance: 40
   detectionInterval: 0.5
   detectionAngle: 120
   provokedDistanceMultiplier: 3

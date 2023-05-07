@@ -21,9 +21,6 @@ public class PlayerSpawner : MonoBehaviour
     {
         ev.PlayerObject.transform.position = spawningPosition.position;
         ev.PlayerObject.transform.rotation = spawningPosition.rotation;
-
-        // TODO: move it out of spawner
-        StartCoroutine(UnlockPlayerMovement(ev.PlayerObject));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,10 +28,5 @@ public class PlayerSpawner : MonoBehaviour
         Debug.Log($"{other.gameObject.name} entered collider");
     }
 
-    private IEnumerator UnlockPlayerMovement(GameObject playerObject)
-    {
-        yield return new WaitForSeconds(1f);
-        playerObject.GetComponent<PlayerController>()?.EnableMovement(true);
-        
-    }
+
 }
