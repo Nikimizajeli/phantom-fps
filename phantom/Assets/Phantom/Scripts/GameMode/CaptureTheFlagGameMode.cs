@@ -10,7 +10,9 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
 
     private GameObject _playerObject;
     private int _currentLives;
-    
+    private int _gameTimeS;
+    private bool _gameFinished;
+
     protected void OnEnable()
     {
         EventDispatcher.Instance.AddListener<PlayerDeathEvent>(OnPlayerDeath);
@@ -31,10 +33,26 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
         EventDispatcher.Instance.Raise<PlayerSpawnedEvent>(new PlayerSpawnedEvent
             { PlayerObject = playerController.gameObject });
 
+        _gameFinished = false;
         _currentLives = maxLives;
+        _gameTimeS = 0;
+        StartCoroutine(CountTime());
     }
 
     #endregion
+
+    private IEnumerator CountTime()
+    {
+        while (!_gameFinished)
+        {
+            yield return new WaitForSeconds(1f);
+            if (!GameController.Instance.IsPaused)
+            {
+                _gameTimeS++;
+                EventDispatcher.Instance.Raise(new ScoreUpdatedEvent { Score = _gameTimeS });
+            }
+        }
+    }
 
     private void OnPlayerDeath(PlayerDeathEvent ev)
     {
@@ -61,7 +79,8 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
 
     private void ProcessVictory()
     {
-        EventDispatcher.Instance.Raise(new GameCompletedEvent{Victory = true});
+        _gameFinished = true;
+        EventDispatcher.Instance.Raise(new GameCompletedEvent { Victory = true, Score = _gameTimeS });
     }
 
     private IEnumerator RespawnPlayer(GameObject playerObject)
@@ -73,6 +92,7 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
 
     private void ProcessDefeat()
     {
-        EventDispatcher.Instance.Raise(new GameCompletedEvent{Victory = false});  
+        _gameFinished = true;
+        EventDispatcher.Instance.Raise(new GameCompletedEvent { Victory = false });
     }
 }

@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
 
     public void Fire(InputAction.CallbackContext context)
     {
-        if (!context.performed)
+        if (!context.performed || GameController.Instance.IsPaused)
         {
             return;
         }
