@@ -31,7 +31,7 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
     {
         var playerController = Instantiate(playerPrefab);
         EventDispatcher.Instance.Raise<PlayerSpawnedEvent>(new PlayerSpawnedEvent
-            { PlayerObject = playerController.gameObject });
+            { PlayerObject = playerController.gameObject, LivesLeft = _currentLives});
 
         _gameFinished = false;
         _currentLives = maxLives;
@@ -87,7 +87,7 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
     {
         yield return new WaitForSeconds(respawnTimer);
         EventDispatcher.Instance.Raise<PlayerSpawnedEvent>(new PlayerSpawnedEvent
-            { PlayerObject = playerObject });
+            { PlayerObject = playerObject, LivesLeft = _currentLives});
     }
 
     private void ProcessDefeat()
