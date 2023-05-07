@@ -9,9 +9,14 @@ public class CharacterHealth : MonoBehaviour, IDamageable
 
     protected void Start()
     {
-        _currentHealth = maxHealth;
+        ResetHealth();
     }
 
+    public void ResetHealth()
+    {
+        _currentHealth = maxHealth;
+    }
+    
     #region IDamageable
 
     public event Action OnDamageTaken;

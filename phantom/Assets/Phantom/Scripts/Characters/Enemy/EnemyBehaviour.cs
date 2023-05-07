@@ -63,7 +63,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void AttackTarget()
     {
-        Debug.Log($"Attacking {_target.transform.name}");
+        _target.GetComponent<IDamageable>()?.TakeDamage(1);
     }
 
     private void OnTargetFound(GameObject target)

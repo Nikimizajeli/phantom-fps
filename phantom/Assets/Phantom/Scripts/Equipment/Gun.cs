@@ -11,8 +11,7 @@ public class Gun : MonoBehaviour, IWeapon
     [SerializeField] private int damage = 2;
     [SerializeField] private LayerMask targetsLayer;
 
-    public bool CanFire => _currentAmmo > 0;
-
+    private bool CanFire => _currentAmmo > 0;
     private int _currentAmmo;
     private bool _reloading;
 

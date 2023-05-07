@@ -244,6 +244,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2423109887546327356}
+  - component: {fileID: 4618741114665972185}
+  - component: {fileID: 5385410243304361157}
   - component: {fileID: 7082088756292784858}
   - component: {fileID: 3589296800167851838}
   - component: {fileID: 7339513831981205369}
@@ -271,6 +273,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4618741114665972185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423109887546327358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a42fe8c0ba958749acf65cd12d3e551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 7082088756292784858}
+  weaponRoot: {fileID: 8695186317963084247}
+--- !u!114 &5385410243304361157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423109887546327358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5cf38ee3d0f9248937d27e3d87befb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
 --- !u!114 &7082088756292784858
 MonoBehaviour:
   m_ObjectHideFlags: 0
