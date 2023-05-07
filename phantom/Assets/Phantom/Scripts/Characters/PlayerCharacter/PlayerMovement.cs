@@ -29,8 +29,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerControlled
     protected void Start()
     {
         EventDispatcher.Instance.Raise(new AssumingCharacterControlEvent { ControlledCharacter = this });
-
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     protected void Update()

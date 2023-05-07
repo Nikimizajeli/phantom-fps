@@ -1,6 +1,15 @@
 using Phantom.Scripts.Configuration;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+
+public class ButtonsListeners
+{
+    public UnityAction PlayButtonListener;
+    public UnityAction ResumeButtonListener;
+    public UnityAction RestartButtonListener;
+    public UnityAction QuitButtonListener;
+}
 
 public class MenuController : MonoBehaviour
 {
@@ -11,7 +20,7 @@ public class MenuController : MonoBehaviour
         HighScores,
         GameOver
     }
-    
+
     [SerializeField] private Transform buttonsRoot;
     [SerializeField] private TextMeshProUGUI headerText;
     [SerializeField] private PlayerNameInput playerNameInput;
@@ -23,7 +32,7 @@ public class MenuController : MonoBehaviour
     
     
     // private readonly List<MenuButton> _buttons = new List<MenuButton>();
-    private MenuState _currentState;
+    public MenuState CurrentState { get; set; }
 
     protected void Awake()
     {
@@ -39,7 +48,7 @@ public class MenuController : MonoBehaviour
         switch (state)
         {
             case MenuState.PauseMenu:
-                _currentState = MenuState.PauseMenu;
+                CurrentState = MenuState.PauseMenu;
                 headerText.text = TextConstants.Pause;
                 
                 playerNameInput.gameObject.SetActive(false);
@@ -50,7 +59,7 @@ public class MenuController : MonoBehaviour
                 quitButton.gameObject.SetActive(true);
                 break;
             case MenuState.HighScores:
-                _currentState = MenuState.HighScores;
+                CurrentState = MenuState.HighScores;
                 headerText.text = TextConstants.HighScores;
                     
                 playerNameInput.gameObject.SetActive(false);
@@ -61,7 +70,7 @@ public class MenuController : MonoBehaviour
                 quitButton.gameObject.SetActive(true);
                 break;
             case MenuState.GameOver:
-                _currentState = MenuState.GameOver;
+                CurrentState = MenuState.GameOver;
                 headerText.text = TextConstants.GameOver;
                 
                 playerNameInput.gameObject.SetActive(false);
@@ -73,7 +82,7 @@ public class MenuController : MonoBehaviour
                 break;
             case MenuState.MainMenu:
             default:
-                _currentState = MenuState.MainMenu;
+                CurrentState = MenuState.MainMenu;
                 headerText.text = TextConstants.MainMenu;
                 
                 playerNameInput.gameObject.SetActive(true);
@@ -85,7 +94,15 @@ public class MenuController : MonoBehaviour
                 break;
         }
     }
-
+    
+    public void SetButtonsListeners(ButtonsListeners listeners)
+    {
+        playButton.SetButtonListener(listeners.PlayButtonListener);
+        resumeButton.SetButtonListener(listeners.ResumeButtonListener);
+        restartButton.SetButtonListener(listeners.RestartButtonListener);
+        quitButton.SetButtonListener(listeners.QuitButtonListener);
+    }
+    
     private void SetButtonsText()
     {
         playButton.SetText(TextConstants.PlayGame);
@@ -94,6 +111,7 @@ public class MenuController : MonoBehaviour
         restartButton.SetText(TextConstants.Restart);
         quitButton.SetText(TextConstants.QuitApp);
     }
+    
     // public void AddButton(string text, Action callback)
     // {
     //     var menuButton = Instantiate(buttonPrefab, buttonsRoot);

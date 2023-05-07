@@ -20,19 +20,34 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadGameScene(Action callback = null)
     {
-        var gameScene = SceneManager.LoadSceneAsync(SceneType.GameScene.ToString(), LoadSceneMode.Additive);
-        gameScene.allowSceneActivation = false;
+        var sceneLoadingOperation = SceneManager.LoadSceneAsync(SceneType.GameScene.ToString(), LoadSceneMode.Additive);
+        sceneLoadingOperation.allowSceneActivation = false;
         
         transitionScreen.ShowTransitionScreen(() =>
         {
-            gameScene.allowSceneActivation = true;
+            sceneLoadingOperation.allowSceneActivation = true;
         });
         
-        gameScene.completed += (op) =>
+        sceneLoadingOperation.completed += (op) =>
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneType.GameScene.ToString()));
             callback?.Invoke();
             transitionScreen.CloseTransitionScreen();
         };
+    }
+
+    public void UnloadGameScene()
+    {
+        var sceneUnloadingOperation = SceneManager.UnloadSceneAsync(SceneType.GameScene.ToString());
+
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        Debug.Log($"{scene} unloaded");
+        Resources.UnloadUnusedAssets();
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 }
