@@ -32,17 +32,32 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (_playerDetected)
         {
-            ChaseTarget();
+            EngageTarget();
         }
     }
 
-    private void ChaseTarget()
+    private void EngageTarget()
     {
         _distanceToTarget = Vector3.Distance(_target.position, transform.position);
-        if (_distanceToTarget < chasingRange)
+        var inChasingRange = _distanceToTarget < chasingRange; 
+        if (inChasingRange && _distanceToTarget >= navMeshAgent.stoppingDistance)
         {
-            navMeshAgent.SetDestination(_target.position);
+            ChaseTarget();
         }
+
+        if (_distanceToTarget <= navMeshAgent.stoppingDistance)
+        {
+            AttackTarget();
+        }
+    }
+    private void ChaseTarget()
+    {
+        navMeshAgent.SetDestination(_target.position);
+    }
+
+    private void AttackTarget()
+    {
+        Debug.Log($"Attacking {_target.transform.name}");
     }
 
     private void OnTargetFound(GameObject target)
