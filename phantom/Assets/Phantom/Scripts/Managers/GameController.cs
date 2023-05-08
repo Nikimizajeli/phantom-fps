@@ -95,6 +95,11 @@ public class GameController : SingletonGameObject<GameController>
 
     private void PauseGame()
     {
+        if (!sceneLoader.IsGameSceneActive)
+        {
+            return;
+        }
+        
         IsPaused = true;
         Time.timeScale = 0f;
         _menuController.gameObject.SetActive(true);
@@ -104,6 +109,11 @@ public class GameController : SingletonGameObject<GameController>
 
     private void UnpauseGame()
     {
+        if (!sceneLoader.IsGameSceneActive)
+        {
+            return;
+        }
+        
         IsPaused = false;
         Time.timeScale = 1f;
         _menuController.gameObject.SetActive(false);

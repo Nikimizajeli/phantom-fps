@@ -12,7 +12,9 @@ public enum SceneType
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] private TransitionScreen transitionScreen;
-    
+
+    public bool IsGameSceneActive => SceneManager.GetActiveScene().name == SceneType.GameScene.ToString();
+
     public void LoadMenuScene()
     {
         SceneManager.LoadScene(SceneType.MenuScene.ToString(), LoadSceneMode.Additive);
@@ -38,9 +40,10 @@ public class SceneLoader : MonoBehaviour
 
     public void UnloadGameScene()
     {
-        if (SceneManager.GetActiveScene().name == SceneType.GameScene.ToString())
+        if (IsGameSceneActive)
         {
             SceneManager.UnloadSceneAsync(SceneType.GameScene.ToString());
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(SceneType.MenuScene.ToString()));
         }
 
         SceneManager.sceneUnloaded += OnSceneUnloaded;
