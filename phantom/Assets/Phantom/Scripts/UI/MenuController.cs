@@ -32,13 +32,15 @@ public class MenuController : MonoBehaviour
     [SerializeField] private MenuButton restartButton;
     [SerializeField] private MenuButton quitButton;
     [SerializeField] private GameObject highScoresRoot;
-    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameOverPanel gameOverPanel;
 
     public MenuState CurrentState { get; private set; }
 
     protected void Awake()
     {
         EventDispatcher.Instance.Raise<MainMenuLoadedEvent>(new MainMenuLoadedEvent{ MenuController = this });
+        
+        EventDispatcher.Instance.AddListener<GameCompletedEvent>(OnGameCompleted);
         
         SwitchMenuState(MenuState.MainMenu);
         
@@ -47,6 +49,11 @@ public class MenuController : MonoBehaviour
         {
             SwitchMenuState(MenuState.HighScores);
         });
+    }
+
+    protected void OnDestroy()
+    {
+        EventDispatcher.Instance.RemoveListener<GameCompletedEvent>(OnGameCompleted);
     }
 
     public void SwitchMenuState(MenuState state)
@@ -59,7 +66,7 @@ public class MenuController : MonoBehaviour
                 
                 playerNameInput.gameObject.SetActive(false);
                 highScoresRoot.SetActive(false);
-                gameOverPanel.SetActive(false);
+                gameOverPanel.gameObject.SetActive(false);
                 playButton.gameObject.SetActive(false);
                 highScoresButton.gameObject.SetActive(false);
                 resumeButton.gameObject.SetActive(true);
@@ -72,7 +79,7 @@ public class MenuController : MonoBehaviour
                     
                 playerNameInput.gameObject.SetActive(false);
                 highScoresRoot.SetActive(true);
-                gameOverPanel.SetActive(false);
+                gameOverPanel.gameObject.SetActive(false);
                 playButton.gameObject.SetActive(false);
                 highScoresButton.gameObject.SetActive(false);
                 resumeButton.gameObject.SetActive(false);
@@ -85,7 +92,7 @@ public class MenuController : MonoBehaviour
                 
                 playerNameInput.gameObject.SetActive(false);
                 highScoresRoot.SetActive(false);
-                gameOverPanel.SetActive(true);
+                gameOverPanel.gameObject.SetActive(true);
                 playButton.gameObject.SetActive(false);
                 highScoresButton.gameObject.SetActive(false);
                 resumeButton.gameObject.SetActive(false);
@@ -99,7 +106,7 @@ public class MenuController : MonoBehaviour
                 
                 playerNameInput.gameObject.SetActive(true);
                 highScoresRoot.SetActive(false);
-                gameOverPanel.SetActive(false);
+                gameOverPanel.gameObject.SetActive(false);
                 playButton.gameObject.SetActive(true);
                 highScoresButton.gameObject.SetActive(true);
                 resumeButton.gameObject.SetActive(false);
@@ -124,5 +131,10 @@ public class MenuController : MonoBehaviour
         resumeButton.SetText(TextConstants.Resume);
         restartButton.SetText(TextConstants.Restart);
         quitButton.SetText(TextConstants.QuitApp);
+    }
+
+    private void OnGameCompleted(GameCompletedEvent ev)
+    {
+        gameOverPanel.Refresh(ev.Victory, ev.Score);
     }
 }

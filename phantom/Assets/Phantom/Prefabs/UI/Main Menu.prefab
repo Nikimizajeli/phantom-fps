@@ -791,7 +791,7 @@ MonoBehaviour:
   restartButton: {fileID: 4051637533762582580}
   quitButton: {fileID: 2279481690187541671}
   highScoresRoot: {fileID: 9137365788436408510}
-  gameOverPanel: {fileID: 902255175100199154}
+  gameOverPanel: {fileID: 1754711067924267898}
 --- !u!1 &5161271723098666625
 GameObject:
   m_ObjectHideFlags: 0

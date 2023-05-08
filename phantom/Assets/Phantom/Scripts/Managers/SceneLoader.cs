@@ -38,10 +38,12 @@ public class SceneLoader : MonoBehaviour
 
     public void UnloadGameScene()
     {
-        var sceneUnloadingOperation = SceneManager.UnloadSceneAsync(SceneType.GameScene.ToString());
+        if (SceneManager.GetActiveScene().name == SceneType.GameScene.ToString())
+        {
+            SceneManager.UnloadSceneAsync(SceneType.GameScene.ToString());
+        }
 
         SceneManager.sceneUnloaded += OnSceneUnloaded;
-
     }
 
     private void OnSceneUnloaded(Scene scene)
