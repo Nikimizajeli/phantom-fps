@@ -25,11 +25,13 @@ public class GameController : SingletonGameObject<GameController>
     protected void OnEnable()
     {
         EventDispatcher.Instance.AddListener<MainMenuLoadedEvent>(OnMainMenuLoadedEvent);
+        EventDispatcher.Instance.AddListener<GameCompletedEvent>(OnGameCompleted);
     }
 
     protected void OnDisable()
     {
         EventDispatcher.Instance.RemoveListener<MainMenuLoadedEvent>(OnMainMenuLoadedEvent);
+        EventDispatcher.Instance.RemoveListener<GameCompletedEvent>(OnGameCompleted);
     }
 
     public void OnPauseKey()
@@ -53,6 +55,13 @@ public class GameController : SingletonGameObject<GameController>
     {
         _menuController = ev.MenuController;
         SetMenuButtonsListeners();
+    }
+
+    private void OnGameCompleted(GameCompletedEvent ev)
+    {
+        _menuController.gameObject.SetActive(true);
+        _menuController.SwitchMenuState(MenuController.MenuState.GameOver);
+        playerHUD.gameObject.SetActive(false);
     }
 
     private void SetMenuButtonsListeners()

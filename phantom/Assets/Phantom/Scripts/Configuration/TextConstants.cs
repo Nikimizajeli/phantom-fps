@@ -8,7 +8,7 @@ namespace Phantom.Scripts.Configuration
         public const string Restart = "Restart";
         public const string Resume = "Resume";
         public const string Victory = "Victory";
-        public const string GameOver = "Game Over";
+        public const string Defeated = "Defeated";
         public const string HighScores = "High Scores";
         public const string MainMenu = "Main Menu";
         public const string Pause = "Pause";

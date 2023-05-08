@@ -13,7 +13,7 @@ public class TransitionScreen : MonoBehaviour
 
     private Action _onTransitionScreenShown;
 
-    public void ShowTransitionScreen(Action callback)
+    public void ShowTransitionScreen(Action callback = null)
     {
         animator.SetTrigger(TransitionInTrigger);
         _onTransitionScreenShown += callback;
