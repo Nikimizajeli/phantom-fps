@@ -61,7 +61,7 @@ public class GameController : SingletonGameObject<GameController>
     {
         _menuController.gameObject.SetActive(true);
         _menuController.SwitchMenuState(MenuController.MenuState.GameOver);
-        playerHUD.gameObject.SetActive(false);
+        sceneLoader.UnloadGameScene();
     }
 
     private void SetMenuButtonsListeners()
@@ -87,7 +87,6 @@ public class GameController : SingletonGameObject<GameController>
         sceneLoader.LoadGameScene(() =>
         {
             _gameMode.StartGame();
-            playerHUD.gameObject.SetActive(true);
             _menuController.gameObject.SetActive(false);
             Cursor.visible = false;
         });
