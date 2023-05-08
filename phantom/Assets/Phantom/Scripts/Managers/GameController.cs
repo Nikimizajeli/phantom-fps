@@ -89,6 +89,7 @@ public class GameController : SingletonGameObject<GameController>
             _gameMode.StartGame();
             playerHUD.gameObject.SetActive(true);
             _menuController.gameObject.SetActive(false);
+            Cursor.visible = false;
         });
     }
 
