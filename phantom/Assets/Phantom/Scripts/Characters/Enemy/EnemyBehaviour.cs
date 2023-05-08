@@ -79,7 +79,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnTargetDeath(PlayerDeathEvent ev)
     {
-        if (ev.PlayerObject != _target.gameObject)
+        if (!_target || ev.PlayerObject != _target.gameObject)
         {
             return;
         }

@@ -12,6 +12,7 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
     private int _currentLives;
     private int _gameTimeS;
     private bool _gameFinished;
+    private bool _respawning;
 
     protected void OnEnable()
     {
@@ -57,6 +58,11 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
 
     private void OnPlayerDeath(PlayerDeathEvent ev)
     {
+        if (_respawning)
+        {
+            return;
+        }
+        
         _currentLives--;
         if (_currentLives > 0)
         {
@@ -86,9 +92,12 @@ public class CaptureTheFlagGameMode : MonoBehaviour, IGameMode
 
     private IEnumerator RespawnPlayer(GameObject playerObject)
     {
+        _respawning = true;
         yield return new WaitForSeconds(respawnTimer);
+        
         EventDispatcher.Instance.Raise<PlayerSpawnedEvent>(new PlayerSpawnedEvent
             { PlayerObject = playerObject, LivesLeft = _currentLives});
+        _respawning = false;
     }
 
     private void ProcessDefeat()

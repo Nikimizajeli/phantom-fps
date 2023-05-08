@@ -48,7 +48,7 @@ public class SceneLoader : MonoBehaviour
 
     private void OnSceneUnloaded(Scene scene)
     {
-        Debug.Log($"{scene} unloaded");
+        Debug.Log($"{scene.name} unloaded");
         Resources.UnloadUnusedAssets();
         SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
