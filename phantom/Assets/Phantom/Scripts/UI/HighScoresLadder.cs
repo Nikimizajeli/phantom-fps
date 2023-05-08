@@ -8,6 +8,11 @@ public class HighScoresLadder : MonoBehaviour
     protected void OnEnable()
     {
         var highScores = GameController.Instance.GetHighScores();
+        if (highScores == null)
+        {
+            return;
+        }
+        
         int templateIndex = 0;
         foreach (var entry in highScores.Take(highScoreTemplates.Count))
         {

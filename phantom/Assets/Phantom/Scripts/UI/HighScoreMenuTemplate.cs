@@ -11,8 +11,8 @@ public class HighScoreMenuTemplate : MonoBehaviour
 
     public void Init(int position, HighScoreEntry entry)
     {
-        positionField.text = position.ToString();
-        nameField.text = entry.PlayerName;
-        scoreField.text = entry.Score.ToString();
+        positionField.text = $"{position}.";
+        nameField.text = entry.playerName;
+        scoreField.text = entry.score.ToString();
     }
 }
