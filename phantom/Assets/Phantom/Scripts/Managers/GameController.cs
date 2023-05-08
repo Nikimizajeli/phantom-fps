@@ -97,8 +97,8 @@ public class GameController : SingletonGameObject<GameController>
     {
         IsPaused = true;
         Time.timeScale = 0f;
-        playerHUD.ShowHUD(false);
         _menuController.gameObject.SetActive(true);
+        _menuController.SwitchMenuState(MenuController.MenuState.PauseMenu);
         Cursor.visible = true;
     }
 
@@ -106,7 +106,6 @@ public class GameController : SingletonGameObject<GameController>
     {
         IsPaused = false;
         Time.timeScale = 1f;
-        playerHUD.ShowHUD(true);
         _menuController.gameObject.SetActive(false);
         Cursor.visible = false;
     }
