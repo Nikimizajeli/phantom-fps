@@ -62,6 +62,7 @@ public class GameController : SingletonGameObject<GameController>
         _menuController.gameObject.SetActive(true);
         _menuController.SwitchMenuState(MenuController.MenuState.GameOver);
         sceneLoader.UnloadGameScene();
+        Cursor.visible = true;
     }
 
     private void SetMenuButtonsListeners()
